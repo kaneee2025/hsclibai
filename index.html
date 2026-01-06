@@ -27,7 +27,7 @@
 
         /* --- 基礎排版 --- */
         body { margin: 0; font-family: "Microsoft JhengHei", "Helvetica Neue", sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
-        a { text-decoration: none; transition: 0.3s; }
+        a { text-decoration: none; transition: 0.3s; color: inherit; }
         ul { list-style: none; padding: 0; }
         
         /* --- 頂部導航列 --- */
@@ -35,23 +35,27 @@
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
         
         /* Logo 區域 */
-        .logo-area { display: flex; align-items: center; gap: 15px; font-size: 1.3rem; font-weight: bold; color: var(--primary-color); }
+        .logo-area { display: flex; align-items: center; gap: 15px; font-size: 1.3rem; font-weight: bold; color: var(--primary-color); cursor: pointer; }
+        .logo-area:hover { opacity: 0.8; }
         .logo-area img { height: 50px; width: auto; } 
 
         .nav-links a { color: var(--text-main); margin-left: 20px; font-weight: 500; font-size: 1rem; }
         .nav-links a:hover { color: var(--primary-color); }
 
-        /* --- Hero Banner --- */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--white);
-            padding: 60px 20px;
-            text-align: center;
-            margin-bottom: 40px;
-            border-radius: 0 0 20px 20px;
+        /* --- Hero Banner (新版圖片模式) --- */
+        .hero-banner-container {
+            width: 100%;
+            max-width: 1200px; /* 限制最大寬度 */
+            margin: 20px auto 40px auto; /* 上下留白，置中 */
+            border-radius: 12px; /* 圓角 */
+            overflow: hidden; /* 確保圓角生效 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 增加立體感 */
         }
-        .hero h1 { margin: 0 0 10px 0; font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .hero-banner-img {
+            width: 100%;
+            height: auto; /* 高度自動，保持比例 */
+            display: block; /* 移除圖片下方的多餘空白 */
+        }
 
         /* --- 版面配置 --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 250px 1fr; gap: 40px; }
@@ -76,7 +80,7 @@
         .feature-card h4 { margin-top: 0; font-size: 1.2rem; color: #333; }
         .feature-card i { color: var(--secondary-color); font-size: 2rem; margin-bottom: 15px; display: block; }
 
-        /* --- 資源卡片樣式 (同步 Tools 頁面的新設計) --- */
+        /* --- 資源卡片樣式 --- */
         .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         .res-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: 0.3s; display: flex; flex-direction: column; border-top: 4px solid transparent; }
         .res-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-top-color: var(--secondary-color); }
@@ -143,16 +147,41 @@
         .alert-box { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 20px; border-radius: 8px; display: flex; gap: 20px; align-items: start; }
         .alert-box i { font-size: 2rem; }
 
-        /* 頁尾 */
-        footer { background: #2d3436; color: #dfe6e9; padding: 40px 0; margin-top: 60px; }
-        .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; }
+        /* 頁尾樣式 (強制白色，與 Basics 分頁統一) */
+        footer { 
+            background: #2d3436; 
+            color: #ffffff; 
+            padding: 40px 0; 
+            margin-top: 60px; 
+            text-align: center; 
+        }
+        .footer-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            text-align: center; 
+            line-height: 1.8; 
+        }
+        .footer-content p { 
+            margin: 5px 0; 
+            color: #ffffff; 
+        }
+        .footer-content a { 
+            color: #ffffff; 
+            text-decoration: none; 
+            border-bottom: 1px dashed #ffffff; 
+        }
+        .footer-content a:hover { 
+            color: var(--secondary-color); 
+            border-bottom-style: solid; 
+        }
 
         /* RWD */
         @media (max-width: 768px) {
             .container { grid-template-columns: 1fr; }
             .sidebar-box { display: none; }
             .nav-links { display: none; }
-            .hero h1 { font-size: 1.8rem; }
+            .hero-banner-container { margin-top: 0; border-radius: 0; }
             .video-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -161,24 +190,23 @@
 
     <nav class="top-bar">
         <div class="nav-container">
-            <div class="logo-area">
-                <img src="hsclogo.png" alt="新生醫專Logo">
+            <a href="index.html" class="logo-area">
+                <img src="hsclogo.png" alt="Logo">
                 <span>新生醫專圖書館</span>
-            </div>
+            </a>
             <div class="nav-links">
-                <a href="#basics">基礎知識</a>
-                <a href="#learning">自學資源</a>
+                <a href="basics.html">基礎知識</a> <a href="courses.html">自學資源</a>
                 <a href="videos.html">教學影片</a>
-                <a href="tools.html">工具庫</a> <a href="#ethics">學術倫理</a>
+                <a href="tools.html">工具庫</a>
+                <a href="#ethics">學術倫理</a>
                 <a href="https://lib.hsc.edu.tw/" target="_blank"><i class="fa-solid fa-house"></i> 回圖書館首頁</a>
             </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <h1><i class="fa-solid fa-robot"></i> AI 智慧資源專區</h1>
-        <p>探索生成式 AI 的無限可能，提升全校師生數位素養</p>
-    </header>
+    <div class="hero-banner-container">
+        <img src="image_3.png" alt="AI 智慧資源專區" class="hero-banner-img">
+    </div>
 
     <div class="container">
         
@@ -186,8 +214,7 @@
             <div class="sidebar-box">
                 <h3><i class="fa-solid fa-compass"></i> 快速導引</h3>
                 <ul class="menu-list">
-                    <li><a href="#basics"><i class="fa-solid fa-circle-info"></i> 什麼是 AI?</a></li>
-                    <li><a href="#learning"><i class="fa-solid fa-graduation-cap"></i> 免費課程</a></li>
+                    <li><a href="basics.html"><i class="fa-solid fa-circle-info"></i> 什麼是 AI?</a></li> <li><a href="courses.html"><i class="fa-solid fa-graduation-cap"></i> 免費課程</a></li>
                     <li><a href="videos.html"><i class="fa-solid fa-video"></i> 精選影片</a></li>
                     <li><a href="tools.html"><i class="fa-solid fa-toolbox"></i> 實用工具</a></li>
                     <li><a href="#ethics"><i class="fa-solid fa-scale-balanced"></i> 引用規範</a></li>
@@ -224,6 +251,11 @@
                         <p>AI 偶爾會自信地說出錯誤資訊。在學術研究領域，<b>務必進行事實查核</b>。</p>
                     </div>
                 </div>
+                <div class="more-container">
+                    <a href="basics.html" class="btn-more">
+                        閱讀完整基礎知識 <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
             </section>
 
             <section id="learning">
@@ -240,7 +272,7 @@
                             <p>Google 官方提供的免費課程，從最基礎的大型語言模型原理解說起，含中文繁體字幕。</p>
                         </div>
                         <div class="res-footer">
-                            <a href="https://www.cloudskillsboost.google/paths/118" target="_blank" class="btn-go">開始上課 <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="https://www.cloudskillsboost.google/paths/118?locale=zh_TW" target="_blank" class="btn-go">開始上課 <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
 
@@ -258,6 +290,12 @@
                             <a href="https://www.coursera.org/learn/ai-for-everyone" target="_blank" class="btn-go">開始上課 <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
+                </div>
+                
+                <div class="more-container">
+                    <a href="courses.html" class="btn-more">
+                        查看更多自學資源 <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
             </section>
 
@@ -388,9 +426,9 @@
 
     <footer>
         <div class="footer-content">
-            <h3>新生醫專圖書館</h3>
-            <p>325 桃園市龍潭區中豐路高平段 418 號 | Tel: (03) 411-7578 轉 250, 251</p>
-            <p>&copy; 2026 Library of Hsin Sheng Junior College of Medical Care and Management.</p>
+            <p>Copyright © 新生學校財團法人新生醫護管理專科學校</p>
+            <p>325桃園市龍潭區中豐路高平段418號</p>
+            <p>TEL: (03)411-7578 轉 250 & 251 | E-Mail: <a href="mailto:lib@hsc.edu.tw">lib@hsc.edu.tw</a></p>
         </div>
     </footer>
 
