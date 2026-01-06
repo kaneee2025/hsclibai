@@ -22,13 +22,17 @@
         }
 
         body { margin: 0; font-family: "Microsoft JhengHei", sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
-        a { text-decoration: none; transition: 0.3s; }
+        a { text-decoration: none; transition: 0.3s; color: inherit; }
         
         /* --- 導航列 --- */
         .top-bar { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-        .logo-area { display: flex; align-items: center; gap: 15px; font-size: 1.3rem; font-weight: bold; color: var(--primary-color); }
+        
+        /* Logo 連結 */
+        .logo-area { display: flex; align-items: center; gap: 15px; font-size: 1.3rem; font-weight: bold; color: var(--primary-color); cursor: pointer; }
+        .logo-area:hover { opacity: 0.8; }
         .logo-area img { height: 50px; width: auto; } 
+        
         .nav-links a { color: var(--text-main); margin-left: 20px; font-weight: 500; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
 
@@ -76,7 +80,12 @@
         .tag-agent { background-color: var(--tag-agent); }
         .tag-gray { background-color: #95a5a6; }
 
-        footer { background: #2d3436; color: #dfe6e9; padding: 40px 0; text-align: center; margin-top: auto; }
+        /* 頁尾更新 */
+        footer { background: #2d3436; color: #dfe6e9; padding: 40px 0; margin-top: auto; }
+        .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; line-height: 1.8; }
+        .footer-content p { margin: 5px 0; }
+        .footer-content a { color: var(--secondary-color); text-decoration: none; border-bottom: 1px dashed var(--secondary-color); }
+        .footer-content a:hover { color: var(--white); border-bottom-style: solid; }
 
         @media (max-width: 768px) {
             .resource-grid { grid-template-columns: 1fr; }
@@ -87,10 +96,10 @@
 
     <nav class="top-bar">
         <div class="nav-container">
-            <div class="logo-area">
+            <a href="index.html" class="logo-area">
                 <img src="hsclogo.png" alt="Logo">
                 <span>新生醫專圖書館</span>
-            </div>
+            </a>
             <div class="nav-links">
                 <a href="index.html">回首頁</a>
                 <a href="videos.html">教學影片</a>
@@ -239,7 +248,11 @@
     </div>
 
     <footer>
-        <p>© 2026 新生醫專圖書館 | AI 智慧學習專區</p>
+        <div class="footer-content">
+            <p>Copyright © 新生學校財團法人新生醫護管理專科學校</p>
+            <p>325桃園市龍潭區中豐路高平段418號</p>
+            <p>TEL: (03)411-7578 轉 250 & 251 | E-Mail: <a href="mailto:lib@hsc.edu.tw">lib@hsc.edu.tw</a></p>
+        </div>
     </footer>
 
 </body>
