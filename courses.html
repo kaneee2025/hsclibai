@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 自學資源平台 | 新生醫專圖書館</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 沿用主視覺設定 --- */
+        :root {
+            --primary-color: #006d77; 
+            --secondary-color: #83c5be;
+            --text-main: #2d3436;
+            --bg-body: #edf6f9;
+            --white: #ffffff;
+            
+            /* 標籤顏色 */
+            --tag-tw: #264653;    /* 國內資源 */
+            --tag-global: #e76f51; /* 國際資源 */
+            --tag-moe: #2a9d8f;    /* 教育部/官方 */
+            --tag-hot: #d62828;    /* 熱門推薦 */
+        }
+
+        body { margin: 0; font-family: "Microsoft JhengHei", sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
+        a { text-decoration: none; transition: 0.3s; color: inherit; }
+        
+        /* --- 導航列 --- */
+        .top-bar { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+        .logo-area { display: flex; align-items: center; gap: 15px; font-size: 1.3rem; font-weight: bold; color: var(--primary-color); cursor: pointer; }
+        .logo-area:hover { opacity: 0.8; }
+        .logo-area img { height: 50px; width: auto; } 
+        .nav-links a { color: var(--text-main); margin-left: 20px; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+
+        /* --- 頁面標題區 --- */
+        .page-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .page-header h1 { margin: 0; font-size: 2rem; }
+        .page-header p { opacity: 0.9; margin-top: 10px; }
+
+        /* --- 容器 --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px 20px; }
+
+        /* --- 區塊標題 --- */
+        .section-header { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 30px; 
+            border-bottom: 2px solid #e0e0e0; 
+            padding-bottom: 10px; 
+            margin-top: 50px;
+        }
+        .section-header i { font-size: 1.5rem; color: var(--primary-color); margin-right: 10px; }
+        .section-header h2 { margin: 0; font-size: 1.5rem; color: #333; }
+
+        /* --- 卡片網格 --- */
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        
+        .course-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: 0.3s; display: flex; flex-direction: column; }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        
+        .card-body { padding: 25px; flex-grow: 1; }
+        .card-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; }
+        .card-title { font-size: 1.2rem; font-weight: bold; color: #2c3e50; }
+        .card-desc { font-size: 0.95rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
+        
+        .card-footer { padding: 15px 25px; background: #f8f9fa; border-top: 1px solid #eee; text-align: right; }
+        
+        .btn-visit { background: var(--secondary-color); color: white; padding: 8px 20px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; display: inline-block; }
+        .btn-visit:hover { background: var(--primary-color); }
+
+        /* 標籤 */
+        .tag { font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; color: white; font-weight: bold; white-space: nowrap; }
+        .tag-tw { background-color: var(--tag-tw); }
+        .tag-global { background-color: var(--tag-global); }
+        .tag-moe { background-color: var(--tag-moe); }
+        .tag-hot { background-color: var(--tag-hot); }
+
+        /* 頁尾 */
+        footer { background: #2d3436; color: #dfe6e9; padding: 40px 0; margin-top: 60px; }
+        .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; line-height: 1.8; }
+        .footer-content p { margin: 5px 0; }
+        .footer-content a { color: var(--secondary-color); text-decoration: none; border-bottom: 1px dashed var(--secondary-color); }
+        .footer-content a:hover { color: var(--white); border-bottom-style: solid; }
+
+        @media (max-width: 768px) {
+            .course-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-bar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">
+                <img src="hsclogo.png" alt="Logo">
+                <span>新生醫專圖書館</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">回首頁</a>
+                <a href="#" class="active">自學平台</a>
+                <a href="videos.html">教學影片</a>
+                <a href="tools.html">工具庫</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1><i class="fa-solid fa-graduation-cap"></i> AI 線上自學資源</h1>
+        <p>彙整國內外權威機構開設的免費課程，從入門觀念到實作應用</p>
+    </div>
+
+    <div class="container">
+
+        <div class="section-header">
+            <i class="fa-solid fa-flag"></i>
+            <h2>國內精選課程 (Domestic Resources)</h2>
+        </div>
+
+        <div class="course-grid">
+            
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">教育部磨課師平台</div>
+                        <span class="tag tag-moe">教育部</span>
+                    </div>
+                    <div class="card-desc">
+                        教育部官方整合的線上課程平台 (MOOCs)，匯集了全台大學的優質課程。您可以在此搜尋「人工智慧」或「AI」，找到由台大、清大等名校教授開設的免費課程，適合系統性學習。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://moocs.moe.edu.tw/" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">全民 AI 通識課</div>
+                        <span class="tag tag-moe">數發部 x Google</span>
+                    </div>
+                    <div class="card-desc">
+                        由數位發展部與 Google 台灣合作推出的免費影音課程。內容淺顯易懂，專為非資訊背景的民眾設計，涵蓋生成式 AI 的基礎原理與生活應用，是入門首選。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.youtube.com/playlist?list=PLTLOS370gPgZY7wOboV1E1eF9EIC9rnEa" target="_blank" class="btn-visit">前往觀看 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">台灣人工智慧學校</div>
+                        <span class="tag tag-tw">產業權威</span>
+                    </div>
+                    <div class="card-desc">
+                        國內最具指標性的 AI 人才培育機構。網站提供豐富的線上研討會錄影與科普文章，內容涵蓋技術原理到各行各業的落地應用。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://aiacademy.tw/" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">Ewant 育網開放教育平台</div>
+                        <span class="tag tag-tw">通識課程</span>
+                    </div>
+                    <div class="card-desc">
+                        台灣最大的 MOOCs 平台之一，與多所大學合作。平台上有許多開設給非資訊背景學生的 AI 通識課，例如「AI 與生活」、「大數據分析」等。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.ewant.org/" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-header">
+            <i class="fa-solid fa-globe"></i>
+            <h2>國外權威平台 (International Resources)</h2>
+        </div>
+
+        <div class="course-grid">
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">Google Cloud Skills Boost</div>
+                        <span class="tag tag-hot">入門必修</span>
+                    </div>
+                    <div class="card-desc">
+                        Google 官方提供的生成式 AI 學習路徑。從最基礎的大型語言模型 (LLM) 原理解說起，包含影片與測驗，且貼心提供繁體中文字幕與介面。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.cloudskillsboost.google/paths/118?locale=zh_TW" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">Coursera - AI For Everyone</div>
+                        <span class="tag tag-hot">吳恩達大神</span>
+                    </div>
+                    <div class="card-desc">
+                        由 AI 教父 Andrew Ng 開設的經典通識課。不需任何工程背景也能聽懂，深入淺出講解 AI 對社會、醫療與產業的影響，是全球最受歡迎的 AI 課程之一。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.coursera.org/learn/ai-for-everyone" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">Elements of AI</div>
+                        <span class="tag tag-global">芬蘭國寶級</span>
+                    </div>
+                    <div class="card-desc">
+                        由芬蘭赫爾辛基大學開發的全球知名免費課程。課程設計初衷是「讓所有人都能懂 AI」，透過互動式圖文帶你釐清 AI 的核心觀念與倫理議題。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.elementsofai.com/" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">IBM SkillsBuild</div>
+                        <span class="tag tag-global">企業認證</span>
+                    </div>
+                    <div class="card-desc">
+                        IBM 提供的專業數位學習平台。包含針對學生與教育者的 AI 基礎課程，涵蓋自然語言處理到實務應用，完成部分課程還能獲得 IBM 頒發的數位證書。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://skillsbuild.org/" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="card-body">
+                    <div class="card-top">
+                        <div class="card-title">LinkedIn Learning</div>
+                        <span class="tag tag-global">微軟合作</span>
+                    </div>
+                    <div class="card-desc">
+                        由微軟與 LinkedIn 合作推出的職涯導向課程。提供大量關於生成式 AI 的實戰影片，且多數配有繁體中文字幕，非常適合想在職場應用 AI 工具的學習者。
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.linkedin.com/learning/" target="_blank" class="btn-visit">前往學習 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Copyright © 新生學校財團法人新生醫護管理專科學校</p>
+            <p>325桃園市龍潭區中豐路高平段418號</p>
+            <p>TEL: (03)411-7578 轉 250 & 251 | E-Mail: <a href="mailto:lib@hsc.edu.tw">lib@hsc.edu.tw</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
