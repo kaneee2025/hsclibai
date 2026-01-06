@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 實用工具庫 | 新生醫專圖書館</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 沿用主視覺設定 --- */
+        :root {
+            --primary-color: #006d77; 
+            --secondary-color: #83c5be;
+            --text-main: #2d3436;
+            --bg-body: #edf6f9;
+            --white: #ffffff;
+            
+            /* 標籤顏色 */
+            --tag-hot: #e76f51;   /* 熱門 */
+            --tag-code: #2a9d8f;  /* 程式 */
+            --tag-read: #e9c46a;  /* 閱讀 */
+            --tag-agent: #264653; /* 代理人 */
+        }
+
+        body { margin: 0; font-family: "Microsoft JhengHei", sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
+        a { text-decoration: none; transition: 0.3s; }
+        
+        /* --- 導航列 --- */
+        .top-bar { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+        .logo-area { display: flex; align-items: center; gap: 15px; font-size: 1.3rem; font-weight: bold; color: var(--primary-color); }
+        .logo-area img { height: 50px; width: auto; } 
+        .nav-links a { color: var(--text-main); margin-left: 20px; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+
+        /* --- 頁面標題區 --- */
+        .page-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .page-header h1 { margin: 0; font-size: 2rem; }
+        .page-header p { opacity: 0.9; margin-top: 10px; }
+
+        /* --- 容器 --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px 20px; }
+
+        /* --- 工具網格系統 --- */
+        .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        
+        .res-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08); transition: 0.3s; display: flex; flex-direction: column; border-top: 4px solid transparent; }
+        .res-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-top-color: var(--secondary-color); }
+        
+        /* 調整 Header 以容納 Logo */
+        .res-header { padding: 20px 20px 10px 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+        
+        /* 標題與 Logo 組合 */
+        .res-title-group { display: flex; align-items: center; gap: 12px; }
+        .res-logo { width: 40px; height: 40px; border-radius: 8px; object-fit: contain; background: #fff; border: 1px solid #eee; padding: 2px; }
+        .res-title { font-size: 1.3rem; font-weight: bold; color: #333; }
+        
+        .res-body { padding: 0 20px 20px 20px; flex-grow: 1; }
+        .res-body p { color: #666; font-size: 0.95rem; margin-top: 10px; line-height: 1.5; }
+        
+        .res-footer { padding: 15px 20px; background: #f8f9fa; border-top: 1px solid #eee; text-align: right; }
+        
+        .btn-go { background: var(--primary-color); color: white; padding: 8px 20px; border-radius: 50px; font-weight: bold; font-size: 0.9rem; display: inline-block; }
+        .btn-go:hover { background: #004e57; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+        /* 標籤樣式 */
+        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; color: white; font-weight: bold; white-space: nowrap; }
+        .tag-hot { background-color: var(--tag-hot); }
+        .tag-code { background-color: var(--tag-code); }
+        .tag-read { background-color: var(--tag-read); }
+        .tag-agent { background-color: var(--tag-agent); }
+        .tag-gray { background-color: #95a5a6; }
+
+        footer { background: #2d3436; color: #dfe6e9; padding: 40px 0; text-align: center; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            .resource-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-bar">
+        <div class="nav-container">
+            <div class="logo-area">
+                <img src="hsclogo.png" alt="Logo">
+                <span>新生醫專圖書館</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">回首頁</a>
+                <a href="videos.html">教學影片</a>
+                <a href="#" class="active">工具庫</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1><i class="fa-solid fa-toolbox"></i> AI 實用工具庫</h1>
+        <p>嚴選全球最新、最強大的 AI 生產力工具</p>
+    </div>
+
+    <div class="container">
+        <div class="resource-grid">
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" class="res-logo" alt="Gemini Logo">
+                        <div class="res-title">Gemini</div>
+                    </div>
+                    <span class="tag tag-hot">Google 最強</span>
+                </div>
+                <div class="res-body">
+                    <p>Google 的多模態 AI 模型。整合了 Google 生態系（Docs, Drive），擅長處理長文本分析與即時聯網搜尋，適合學術與文書處理。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://gemini.google.com/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=chat.deepseek.com&sz=128" class="res-logo" alt="DeepSeek Logo">
+                        <div class="res-title">DeepSeek</div>
+                    </div>
+                    <span class="tag tag-code">程式與推理</span>
+                </div>
+                <div class="res-body">
+                    <p>近期爆紅的開源模型霸主。在程式碼撰寫與數學邏輯推理上表現驚人，且使用成本極低，被譽為 CP 值最高的 AI 助手。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://chat.deepseek.com/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=notebooklm.google.com&sz=128" class="res-logo" alt="NotebookLM Logo">
+                        <div class="res-title">NotebookLM</div>
+                    </div>
+                    <span class="tag tag-read">研讀神器</span>
+                </div>
+                <div class="res-body">
+                    <p>Google 推出的筆記分析工具。你可以上傳幾十篇 PDF 論文或講義，它能變成你的專屬家教，甚至自動生成「Podcast」講給你聽。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://notebooklm.google.com/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=x.ai&sz=128" class="res-logo" alt="Grok Logo">
+                        <div class="res-title">Grok</div>
+                    </div>
+                    <span class="tag tag-hot">即時資訊</span>
+                </div>
+                <div class="res-body">
+                    <p>馬斯克 (Elon Musk) 旗下 xAI 開發的模型。最大特色是能直接存取 X (Twitter) 的即時數據，風格幽默犀利，適合獲取最新網路趨勢。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://x.ai/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=manus.im&sz=128" class="res-logo" alt="Manus Logo">
+                        <div class="res-title">Manus</div>
+                    </div>
+                    <span class="tag tag-agent">AI Agent</span>
+                </div>
+                <div class="res-body">
+                    <p>下一代的 AI 代理人 (Agent)。不只是陪你聊天，它能「自主」幫你規劃任務、操作瀏覽器、執行複雜的工作流程。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://manus.im/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=openai.com&sz=128" class="res-logo" alt="ChatGPT Logo">
+                        <div class="res-title">ChatGPT</div>
+                    </div>
+                    <span class="tag tag-gray">通用助手</span>
+                </div>
+                <div class="res-body">
+                    <p>OpenAI 開發的經典工具。功能最為全面，擁有強大的語意理解能力，是目前全球使用率最高的 AI 服務。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://chat.openai.com/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=perplexity.ai&sz=128" class="res-logo" alt="Perplexity Logo">
+                        <div class="res-title">Perplexity</div>
+                    </div>
+                    <span class="tag tag-read">學術推薦</span>
+                </div>
+                <div class="res-body">
+                    <p>附帶引用的 AI 搜尋引擎。它會閱讀多個網頁後，整理出精準答案並標註來源，大幅減少事實查核的時間。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://www.perplexity.ai/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="res-card">
+                <div class="res-header">
+                    <div class="res-title-group">
+                        <img src="https://www.google.com/s2/favicons?domain=consensus.app&sz=128" class="res-logo" alt="Consensus Logo">
+                        <div class="res-title">Consensus</div>
+                    </div>
+                    <span class="tag tag-read">論文搜尋</span>
+                </div>
+                <div class="res-body">
+                    <p>專門針對學術期刊進行檢索。能告訴你某個科學假設是否有研究支持，並提供論文摘要，護理醫學研究必備。</p>
+                </div>
+                <div class="res-footer">
+                    <a href="https://consensus.app/" target="_blank" class="btn-go">前往使用 <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 新生醫專圖書館 | AI 智慧學習專區</p>
+    </footer>
+
+</body>
+</html>
