@@ -21,25 +21,26 @@
         /* --- 導航列 --- */
         .top-bar { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-        
-        /* Logo 區域改為連結 */
         .logo-area { display: flex; align-items: center; gap: 15px; font-size: 1.3rem; font-weight: bold; color: var(--primary-color); cursor: pointer; }
         .logo-area:hover { opacity: 0.8; }
         .logo-area img { height: 50px; width: auto; } 
-
         .nav-links a { color: var(--text-main); margin-left: 20px; font-weight: 500; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
 
-        /* --- 頁面標題區 --- */
-        .page-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            margin-bottom: 40px;
+        /* --- Hero Banner (圖片模式) --- */
+        .hero-banner-container {
+            width: 100%;
+            max-width: 1200px; /* 限制最大寬度 */
+            margin: 20px auto 40px auto; /* 上下留白，置中 */
+            border-radius: 12px; /* 圓角 */
+            overflow: hidden; /* 確保圓角生效 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 增加立體感 */
         }
-        .page-header h1 { margin: 0; font-size: 2rem; }
-        .page-header p { opacity: 0.9; margin-top: 10px; }
+        .hero-banner-img {
+            width: 100%;
+            height: auto; /* 高度自動，保持比例 */
+            display: block; /* 移除圖片下方的多餘空白 */
+        }
 
         /* --- 寬版容器 --- */
         .gallery-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px 20px; }
@@ -47,7 +48,6 @@
         /* --- 影片網格系統 --- */
         .video-grid { 
             display: grid; 
-            /* 自動調整：最小寬度 350px，一排可放 3 個 */
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
             gap: 30px; 
         }
@@ -74,10 +74,10 @@
         .video-thumbnail-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5; }
 
         .video-info { padding: 20px; }
-        .video-title { font-weight: bold; font-size: 1.1rem; color: #333; margin-bottom: 8px; line-height: 1.4; }
-        .video-desc { font-size: 0.9rem; color: #666; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .video-title { font-weight: bold; font-size: 1.1rem; color: #333; margin-bottom: 8px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;}
+        .video-desc { font-size: 0.9rem; color: #666; }
 
-        /* 頁尾更新 */
+        /* 頁尾 */
         footer { background: #2d3436; color: #dfe6e9; padding: 40px 0; margin-top: auto; }
         .footer-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; text-align: center; line-height: 1.8; }
         .footer-content p { margin: 5px 0; }
@@ -85,6 +85,7 @@
         .footer-content a:hover { color: var(--white); border-bottom-style: solid; }
 
         @media (max-width: 768px) {
+            .hero-banner-container { margin-top: 0; border-radius: 0; }
             .video-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -99,14 +100,17 @@
             </a>
             <div class="nav-links">
                 <a href="index.html">回首頁</a>
-                <a href="#" class="active">影音專區</a>
+                <a href="basics.html">基礎知識</a>
+                <a href="ebooks.html">電子書</a>
+                <a href="courses.html">自學資源</a>
+                <a href="#" class="active">教學影片</a>
+                <a href="tools.html">工具庫</a>
             </div>
         </div>
     </nav>
 
-    <div class="page-header">
-        <h1><i class="fa-solid fa-clapperboard"></i> 精選 AI 教學影音庫</h1>
-        <p>彙整優質 YouTube 教學資源，提升師生數位競爭力</p>
+    <div class="hero-banner-container">
+        <img src="banner-videos.png" alt="精選教學影片" class="hero-banner-img">
     </div>
 
     <div class="gallery-container">
@@ -154,6 +158,61 @@
                 <div class="video-info">
                     <div class="video-title">Gemini 3 最強教程：8大場景實測</div>
                     <div class="video-desc">深度評測 Gemini 3 的多模態能力，並展示如何應用在實際工作與生活場景。</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail-container" onclick="loadVideo(this, 'DVeJGQCycjI')">
+                    <img src="https://img.youtube.com/vi/DVeJGQCycjI/maxresdefault.jpg" alt="影片封面">
+                    <div class="play-button-overlay"><i class="fa-regular fa-circle-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">【2026最新】Gemini 3.0 和 ChatGPT 5.1 終極提示工程指南！</div>
+                    <div class="video-desc">頻道：孔老師AI研習社 • 觀看次數：2.5萬次</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail-container" onclick="loadVideo(this, 'JmZ7bMdKSjM')">
+                    <img src="https://img.youtube.com/vi/JmZ7bMdKSjM/maxresdefault.jpg" alt="影片封面">
+                    <div class="play-button-overlay"><i class="fa-regular fa-circle-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">【2026最新】地表最強人工智能Google AI炸裂更新！瘋狂商業應用終於來了！</div>
+                    <div class="video-desc">頻道：孔老師AI研習社 • 觀看次數：4.8萬次</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail-container" onclick="loadVideo(this, 'fVVgHFrjVvM')">
+                    <img src="https://img.youtube.com/vi/fVVgHFrjVvM/maxresdefault.jpg" alt="影片封面">
+                    <div class="play-button-overlay"><i class="fa-regular fa-circle-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">2026最值得你花錢的5個AI工具！我痛砸5位數美金買回來的經驗總結</div>
+                    <div class="video-desc">頻道：小船 • 觀看次數：4.6萬次</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail-container" onclick="loadVideo(this, 'XoaGjnQrhp4')">
+                    <img src="https://img.youtube.com/vi/XoaGjnQrhp4/maxresdefault.jpg" alt="影片封面">
+                    <div class="play-button-overlay"><i class="fa-regular fa-circle-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">原來GPT-5還能這樣玩！10個你不知道的隱藏功能（但是應該知道）</div>
+                    <div class="video-desc">頻道：孔老師AI研習社 • 觀看次數：8.9萬次</div>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <div class="video-thumbnail-container" onclick="loadVideo(this, 'ciUuRlW6Rek')">
+                    <img src="https://img.youtube.com/vi/ciUuRlW6Rek/maxresdefault.jpg" alt="影片封面">
+                    <div class="play-button-overlay"><i class="fa-regular fa-circle-play"></i></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">你還在手動做簡報嗎？試試這個AI新產品！Notebook LM</div>
+                    <div class="video-desc">頻道：泛科學院 • 觀看次數：3.1萬次</div>
                 </div>
             </div>
 
